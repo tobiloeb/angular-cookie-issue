@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   template: `
     <h1>Welcome to {{title}}!</h1>
 
-    <router-outlet />
   `,
   styles: [],
 })
 export class AppComponent {
   title = 'angular-cookie-issue';
+
+  constructor(httpClient: HttpClient) {
+    httpClient.get('http://localhost:4200/backend/call').subscribe({
+      next: () => {
+        console.error('backendcall successfull');
+      },
+      error: () => {}
+    })
+  }
 }
